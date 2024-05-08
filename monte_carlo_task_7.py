@@ -1,4 +1,5 @@
 import random
+import matplotlib.pyplot as plt
 
 def roll_dice():
     return random.randint(1, 6)
@@ -26,3 +27,21 @@ num_trials = 1000000  # Велика кількість кидків кубик�
 probabilities = monte_carlo_simulation(num_trials)
 
 print_probabilities(probabilities)
+
+
+# Дані з результатами симуляції
+sums = list(range(2, 13))
+
+
+# Побудова графіку
+plt.figure(figsize=(10, 6))
+plt.bar(sums, probabilities, color='skyblue')
+
+# Додавання підписів
+plt.title('Ймовірності сум при киданні двох кубиків')
+plt.xlabel('Сума')
+plt.ylabel('Ймовірність, %')
+
+# Відображення графіку
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
