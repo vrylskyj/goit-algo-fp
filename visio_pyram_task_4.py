@@ -38,14 +38,34 @@ def draw_heap(heap_root):
     nx.draw(heap, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
     plt.show()
 
-# Створення бінарної купи
-root = HeapNode(7)
-root.left = HeapNode(6)
-root.right = HeapNode(5)
-root.left.left = HeapNode(4)
-root.left.right = HeapNode(3)
-root.right.left = HeapNode(2)
-root.right.right = HeapNode(1)
+def build_heap_tree(heap_array):
+    # Створюємо порожнє бінарне дерево
+    root = None
 
-# Відображення бінарної купи
-draw_heap(root)
+    # Додаємо кожен елемент масиву в бінарне дерево
+    for key in heap_array:
+        if root is None:
+            root = HeapNode(key)
+        else:
+            add_to_heap(root, key)
+    
+    return root
+
+def add_to_heap(node, key):
+    if key < node.val:
+        if node.left is None:
+            node.left = HeapNode(key)
+        else:
+            add_to_heap(node.left, key)
+    else:
+        if node.right is None:
+            node.right = HeapNode(key)
+        else:
+            add_to_heap(node.right, key)
+
+# Припустимо, що у нас є бінарна купа у вигляді масиву
+heap_array = [1, 3, 5, 7, 9, 2, 4, 34, 2, 1, 2]
+# Побудова дерева з купи
+heap_tree_root = build_heap_tree(heap_array)
+# Відображення бінарної купи у вигляді дерева
+draw_heap(heap_tree_root)

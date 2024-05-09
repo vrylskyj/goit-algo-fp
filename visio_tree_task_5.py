@@ -38,15 +38,16 @@ def draw_tree(tree_root):
     nx.draw(tree, pos=pos, labels=labels, arrows=False, node_size=2500, node_color=colors)
     plt.show()
 
-def dfs_traversal(root, level=0):
+def dfs_traversal(root, level=0, color_shift=20):
     if root:
-        color = "#{:02x}{:02x}{:02x}".format(0, 100 + level * 10, 240 - level * 10)
+        color = "#{:02x}{:02x}{:02x}".format(0, 100 + (level * color_shift) % 256, 240 - (level * color_shift) % 256)
         root.color = color
         print(root.val, end=" -> ")
-        dfs_traversal(root.left, level + 1)
-        dfs_traversal(root.right, level + 1)
+        dfs_traversal(root.left, level + 1, color_shift)
+        dfs_traversal(root.right, level + 1, color_shift)
 
-def bfs_traversal(root):
+
+def bfs_traversal(root, color_shift=20):
     if not root:
         return
 
@@ -56,7 +57,7 @@ def bfs_traversal(root):
     while queue:
         next_level = []
         for node in queue:
-            color = "#{:02x}{:02x}{:02x}".format(0, 100 + level * 10, 240 - level * 10)
+            color = "#{:02x}{:02x}{:02x}".format(0, 100 + (level * color_shift) % 256, 240 - (level * color_shift) % 256)
             node.color = color
             print(node.val, end=" -> ")
             if node.left:
@@ -65,7 +66,7 @@ def bfs_traversal(root):
                 next_level.append(node.right)
         level += 1
         queue = next_level
-
+        
 # Створення дерева
 root = TreeNode(1)
 root.left = TreeNode(2)
